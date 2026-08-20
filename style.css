@@ -1,0 +1,351 @@
+/* ===== CENTER ALIGNMENT & PROFESSIONAL LAYOUT ===== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #eef5ff, #ffffff);
+    color: #1f3355;
+}
+
+/* Main website container */
+.container,
+main,
+section {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Hero section */
+.hero {
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.hero h1 {
+    text-align: center;
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    text-align: center;
+    font-size: 20px;
+}
+
+/* Step section */
+.steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    text-align: center;
+    margin: 30px auto;
+}
+
+/* Main cards */
+.features,
+.cards,
+.form-container,
+.prediction-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+/* Individual card */
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+}
+
+/* Headings */
+h1, h2, h3 {
+    text-align: center;
+}
+
+/* Form */
+form {
+    max-width: 500px;
+    margin: 30px auto;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin-top: 7px;
+    border: 1px solid #ccd6e5;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+/* Buttons */
+button {
+    display: block;
+    margin: 25px auto;
+    padding: 13px 28px;
+    border: none;
+    border-radius: 10px;
+    background: #2864c7;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* Prediction result */
+.result {
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: center;
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+/* Mobile */
+@media (max-width: 800px) {
+
+    .features,
+    .cards,
+    .form-container,
+    .prediction-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .card {
+        max-width: 500px;
+    }
+}
+
+
+/* ===== FINAL CENTERED WEBSITE DESIGN ===== */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #eef5ff, #ffffff);
+    color: #1f3557;
+}
+
+/* Center everything */
+main,
+section,
+.container {
+    width: 90%;
+    max-width: 1250px;
+    margin: 0 auto;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 25px;
+}
+
+/* Hero */
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: 52px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.hero p {
+    font-size: 21px;
+    text-align: center;
+}
+
+/* Make hero images bigger */
+.hero img {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    display: block;
+    margin: 25px auto;
+}
+
+/* ===== STEPS ===== */
+
+.steps {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.step {
+    flex: 1;
+    text-align: center;
+}
+
+.step-number {
+    margin: 0 auto 10px;
+}
+
+/* Remove side alignment */
+.steps h3,
+.steps p {
+    text-align: center;
+}
+
+/* ===== FOUR CARDS ===== */
+
+.features,
+.cards,
+.prediction-container {
+    width: 90%;
+    max-width: 1250px;
+    margin: 40px auto;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+
+    align-items: stretch;
+    justify-content: center;
+}
+
+/* Card */
+.card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 22px;
+    text-align: center;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+
+    min-height: 450px;
+}
+
+/* Card headings */
+.card h2,
+.card h3 {
+    text-align: center;
+}
+
+/* Form */
+form {
+    width: 100%;
+    max-width: 450px;
+    margin: 20px auto;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    margin-top: 7px;
+    border-radius: 10px;
+    border: 1px solid #ccd6e5;
+}
+
+/* Buttons */
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 13px 25px;
+    border: none;
+    border-radius: 10px;
+    background: #2864d7;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Result */
+.result {
+    width: 90%;
+    max-width: 600px;
+    margin: 50px auto;
+    text-align: center;
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 30px;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+
+    .features,
+    .cards,
+    .prediction-container {
+        grid-template-columns: 1fr;
+    }
+
+    .steps {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+}
+
+

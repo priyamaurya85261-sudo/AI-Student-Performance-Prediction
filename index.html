@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Student Performance Predictor</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #eef5ff, #f8fbff);
+            color: #243b5a;
+            min-height: 100vh;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            text-align: center;
+            padding: 25px 20px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #315fba;
+        }
+
+        .tagline {
+            margin-top: 8px;
+            color: #60789a;
+            font-size: 16px;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            text-align: center;
+            padding: 45px 20px 60px;
+        }
+
+        .hero-image {
+            width: 360px;
+            height: 280px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 30px auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #203b64;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #60789a;
+        }
+
+        .hero-highlight {
+            color: #3d70c9;
+            font-weight: bold;
+        }
+
+        /* ================= MAIN CONTAINER ================= */
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        /* ================= PROGRESS ================= */
+
+        .progress {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .step {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #dce9ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #315fba;
+        }
+
+        .step.active {
+            background: #3d70c9;
+            color: white;
+        }
+
+        .line {
+            width: 50px;
+            height: 3px;
+            background: #dce9ff;
+        }
+
+        /* ================= CARD ================= */
+
+        .card {
+            background: white;
+            border-radius: 22px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 35px rgba(50, 90, 140, 0.12);
+            text-align: center;
+        }
+
+        .card-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-size: 30px;
+            margin-bottom: 8px;
+            color: #243f66;
+        }
+
+        .card-subtitle {
+            color: #71849f;
+            margin-bottom: 30px;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #304d73;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #dbe5f2;
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #4778ca;
+        }
+
+        /* ================= BUTTON ================= */
+
+        button {
+            border: none;
+            background: #3d70c9;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #2859a8;
+            transform: translateY(-2px);
+        }
+
+        .secondary-btn {
+            background: #edf3ff;
+            color: #315fba;
+        }
+
+        .secondary-btn:hover {
+            background: #dce8ff;
+        }
+
+        /* ================= PREDICTION FORM ================= */
+
+        .input-row {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-row label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .input-row small {
+            color: #7588a2;
+        }
+
+        /* ================= RESULT ================= */
+
+        .result {
+            background: linear-gradient(135deg, #edf5ff, #ffffff);
+            border: 2px solid #dce9ff;
+        }
+
+        .score {
+            font-size: 65px;
+            font-weight: bold;
+            color: #3d70c9;
+            margin: 20px 0;
+        }
+
+        .performance {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2f6d4e;
+            margin-bottom: 12px;
+        }
+
+        .message {
+            color: #647792;
+            line-height: 1.6;
+        }
+
+        /* ================= HIDDEN ================= */
+
+        .hidden {
+            display: none;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #71849f;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 700px) {
+
+            .hero {
+                padding-top: 25px;
+            }
+
+            .hero-image {
+                width: 280px;
+                height: 220px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+
+            .line {
+                width: 35px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <div class="logo">
+            🎓 Student AI
+        </div>
+
+        <div class="tagline">
+            AI-Powered Student Performance Prediction
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <img
+            class="hero-image"
+            src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
+            alt="AI Student Illustration"
+        >
+
+        <h1>
+            AI Student Performance Predictor ✨
+        </h1>
+
+        <p>
+            Smart Predictions •
+            <span class="hero-highlight">
+                Better Performance
+            </span>
+            • Bright Future
+        </p>
+
+    </section>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="container">
+
+
+        <!-- ================= PROGRESS ================= -->
+
+        <div class="progress">
+
+            <div class="step active">1</div>
+
+            <div class="line"></div>
+
+            <div class="step">2</div>
+
+            <div class="line"></div>
+
+            <div class="step">3</div>
+
+        </div>
+
+
+        <!-- ================= STUDENT DETAILS ================= -->
+
+        <section class="card" id="studentSection">
+
+            <div class="card-icon">
+                👩‍🎓
+            </div>
+
+            <h2>
+                Student Details
+            </h2>
+
+            <p class="card-subtitle">
+                Enter your details to get started
+            </p>
+
+
+            <div class="form-group">
+
+                <label>
+                    Student Name
+                </label>
+
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Enter your full name"
+                >
+
+            </div>
+
+
+            <button onclick="startPrediction()">
+                Start Prediction ➜
+            </button>
+
+        </section>
+
+
+        <!-- ================= PREDICTION DETAILS ================= -->
+
+        <section
+            class="card hidden"
+            id="predictionSection">
+
+            <div class="card-icon">
+                📊
+            </div>
+
+            <h2>
+                Prediction Details
+            </h2>
+
+            <p class="card-subtitle">
+                Provide your academic information
+            </p>
+
+
+            <!-- STUDY HOURS -->
+
+            <div class="input-row">
+
+                <label>
+                    ⏰ Study Hours per Day
+                </label>
+
+                <input
+                    type="number"
+                    id="studyHours"
+                    placeholder="e.g. 5"
+                    min="0"
+                    max="24"
+                >
+
+                <small>
+                    Average hours studied per day
+                </small>
+
+            </div>
+
+
+            <!-- ATTENDANCE -->
+
+            <div class="input-row">
+
+                <label>
+                    👥 Attendance Percentage
+                </label>
+
+                <input
+                    type="number"
+                    id="attendance"
+                    placeholder="e.g. 85"
+                    min="0"
+                    max="100"
+                >
+
+                <small>
+                    Your average attendance
+                </small>
+
+            </div>
+
+
+            <!-- ASSIGNMENT -->
+
+            <div class="input-row">
+
+                <label>
+                    📝 Assignment Score
+                </label>
+
+                <input
+                    type="number"
+                    id="assignment"
+                    placeholder="e.g. 78"
+                    min="0"
+                    max="100"
+                >
+
+                <small>
+                    Score out of 100
+                </small>
+
+            </div>
+
+
+            <!-- EXAM -->
+
+            <div class="input-row">
+
+                <label>
+                    📚 Previous Exam Marks
+                </label>
+
+                <input
+                    type="number"
+                    id="exam"
+                    placeholder="e.g. 72"
+                    min="0"
+                    max="100"
+                >
+
+                <small>
+                    Previous examination score
+                </small>
+
+            </div>
+
+
+            <button onclick="predictPerformance()">
+                ✨ Predict Performance
+            </button>
+
+
+            <br>
+
+
+            <button
+                class="secondary-btn"
+                onclick="goBack()">
+
+                ← Back
+
+            </button>
+
+        </section>
+
+
+        <!-- ================= RESULT ================= -->
+
+        <section
+            class="card result hidden"
+            id="resultSection">
+
+            <div class="card-icon">
+                🏆
+            </div>
+
+            <h2>
+                Prediction Result
+            </h2>
+
+            <p>
+                AI Predicted Performance
+            </p>
+
+
+            <div
+                class="score"
+                id="score">
+
+                86 /100
+
+            </div>
+
+
+            <div
+                class="performance"
+                id="performance">
+
+                Excellent
+
+            </div>
+
+
+            <p
+                class="message"
+                id="message">
+
+                Great job! Keep up the consistent effort
+                to maintain your performance.
+
+            </p>
+
+
+            <br>
+
+
+            <button onclick="predictAgain()">
+
+                🔄 Predict Again
+
+            </button>
+
+
+            <button
+                class="secondary-btn"
+                onclick="goHome()">
+
+                🏠 Go to Home
+
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            🤖 AI Student Performance Predictor
+        </p>
+
+        <p>
+            Built using Python • Pandas • NumPy • Scikit-learn
+        </p>
+
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        /* ================= START PREDICTION ================= */
+
+        function startPrediction() {
+
+            const name =
+                document
+                .getElementById("studentName")
+                .value
+                .trim();
+
+
+            if (name === "") {
+
+                alert("Please enter your name.");
+
+                return;
+
+            }
+
+
+            document
+                .getElementById("studentSection")
+                .classList
+                .add("hidden");
+
+
+            document
+                .getElementById("predictionSection")
+                .classList
+                .remove("hidden");
+
+
+            updateSteps(2);
+
+        }
+
+
+
+        /* ================= BACK ================= */
+
+        function goBack() {
+
+            document
+                .getElementById("predictionSection")
+                .classList
+                .add("hidden");
+
+
+            document
+                .getElementById("studentSection")
+                .classList
+                .remove("hidden");
+
+
+            updateSteps(1);
+
+        }
+
+
+
+        /* ================= PREDICT PERFORMANCE ================= */
+
+        function predictPerformance() {
+
+            const study =
+                parseFloat(
+                    document
+                    .getElementById("studyHours")
+                    .value
+                );
+
+
+            const attendance =
+                parseFloat(
+                    document
+                    .getElementById("attendance")
+                    .value
+                );
+
+
+            const assignment =
+                parseFloat(
+                    document
+                    .getElementById("assignment")
+                    .value
+                );
+
+
+            const exam =
+                parseFloat(
+                    document
+                    .getElementById("exam")
+                    .value
+                );
+
+
+            /* Check empty fields */
+
+            if (
+                isNaN(study) ||
+                isNaN(attendance) ||
+                isNaN(assignment) ||
+                isNaN(exam)
+            ) {
+
+                alert(
+                    "Please fill all academic details."
+                );
+
+                return;
+
+            }
+
+
+            /* Validate values */
+
+            if (
+                study < 0 ||
+                study > 24 ||
+                attendance < 0 ||
+                attendance > 100 ||
+                assignment < 0 ||
+                assignment > 100 ||
+                exam < 0 ||
+                exam > 100
+            ) {
+
+                alert(
+                    "Please enter valid values."
+                );
+
+                return;
+
+            }
+
+
+            /*
+                DEMO PREDICTION
+
+                This is currently a frontend
+                calculation.
+
+                Later we can connect this
+                with your Python ML model.
+            */
+
+            let score =
+                (study * 5) +
+                (attendance * 0.25) +
+                (assignment * 0.20) +
+                (exam * 0.30);
+
+
+            score = Math.round(score);
+
+
+            if (score > 100) {
+
+                score = 100;
+
+            }
+
+
+            let performance;
+            let message;
+
+
+            /* ================= PERFORMANCE ================= */
+
+            if (score >= 85) {
+
+                performance =
+                    "Excellent 🌟";
+
+                message =
+                    "Great job! Keep up the consistent effort to maintain your performance.";
+
+            }
+
+            else if (score >= 70) {
+
+                performance =
+                    "Good 👍";
+
+                message =
+                    "Good performance! With a little more consistency, you can reach the excellent level.";
+
+            }
+
+            else if (score >= 50) {
+
+                performance =
+                    "Average 📚";
+
+                message =
+                    "Your performance is average. Focus on study hours, attendance and assignments.";
+
+            }
+
+            else {
+
+                performance =
+                    "Needs Improvement 💪";
+
+                message =
+                    "Don't worry! Improve your study routine, attendance and assignment performance.";
+
+            }
+
+
+            /* ================= DISPLAY RESULT ================= */
+
+            document
+                .getElementById("score")
+                .innerText =
+                score + " /100";
+
+
+            document
+                .getElementById("performance")
+                .innerText =
+                performance;
+
+
+            document
+                .getElementById("message")
+                .innerText =
+                message;
+
+
+            document
+                .getElementById("predictionSection")
+                .classList
+                .add("hidden");
+
+
+            document
+                .getElementById("resultSection")
+                .classList
+                .remove("hidden");
+
+
+            updateSteps(3);
+
+        }
+
+
+
+        /* ================= PREDICT AGAIN ================= */
+
+        function predictAgain() {
+
+            document
+                .getElementById("resultSection")
+                .classList
+                .add("hidden");
+
+
+            document
+                .getElementById("predictionSection")
+                .classList
+                .remove("hidden");
+
+
+            updateSteps(2);
+
+        }
+
+
+
+        /* ================= GO HOME ================= */
+
+        function goHome() {
+
+            document
+                .getElementById("resultSection")
+                .classList
+                .add("hidden");
+
+
+            document
+                .getElementById("predictionSection")
+                .classList
+                .add("hidden");
+
+
+            document
+                .getElementById("studentSection")
+                .classList
+                .remove("hidden");
+
+
+            document
+                .getElementById("studentName")
+                .value = "";
+
+
+            document
+                .getElementById("studyHours")
+                .value = "";
+
+
+            document
+                .getElementById("attendance")
+                .value = "";
+
+
+            document
+                .getElementById("assignment")
+                .value = "";
+
+
+            document
+                .getElementById("exam")
+                .value = "";
+
+
+            updateSteps(1);
+
+        }
+
+
+
+        /* ================= PROGRESS STEPS ================= */
+
+        function updateSteps(activeStep) {
+
+            const steps =
+                document
+                .querySelectorAll(".step");
+
+
+            steps.forEach(
+                function(step, index) {
+
+                    if (
+                        index + 1 <= activeStep
+                    ) {
+
+                        step.classList
+                            .add("active");
+
+                    }
+
+                    else {
+
+                        step.classList
+                            .remove("active");
+
+                    }
+
+                }
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>
